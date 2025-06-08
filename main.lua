@@ -1,19 +1,14 @@
+--- @since 25.5.31
+
 return {
     entry = function(_, job)
         local mode = job.args[1]
-        local approval
-        if mode == "s" or mode == "suggest" then
-            approval = "suggest"
-        elseif mode == "e" or mode == "auto-edit" then
-            approval = "auto-edit"
-        elseif mode == "f" or mode == "full-auto" then
-            approval = "full-auto"
-        end
+        assert(mode == "suggest" or mode == "auto-edit" or mode == "full-auto", "Invalid action")
 
         local permit = ya.hide()
         local cmd = Command("codex")
-        if approval then
-            cmd = cmd:arg("--approval-mode"):arg(approval)
+        if mode then
+            cmd = cmd:arg("--approval-mode"):arg(mode)
         end
         cmd = cmd:stdin(Command.INHERIT)
                  :stdout(Command.INHERIT)

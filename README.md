@@ -31,17 +31,17 @@ git clone https://github.com/RyuX51/codex.yazi.git \
 Bind one of the following keymaps in your `keymap.toml` to launch Codex directly:
 
 ```toml
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "x", "s" ]
 run  = "plugin codex suggest"
 desc = "Open Codex CLI (suggest mode)"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "x", "e" ]
 run  = "plugin codex auto-edit"
 desc = "Open Codex CLI (auto-edit mode)"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "x", "f" ]
 run  = "plugin codex full-auto"
 desc = "Open Codex CLI (full-auto mode)"
