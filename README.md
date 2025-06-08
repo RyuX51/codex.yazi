@@ -1,13 +1,13 @@
 # codex.yazi
 
-A Yazi plugin to launch the Codex CLI in three modes: suggest, auto-edit, and full-auto.
+A Yazi plugin to launch the Codex CLI in three modes: **suggest**, **auto-edit**, and **full-auto**.
 
 ## Installation
 
-### Using `ya pack`
+### Using `ya pkg add`
 
 ```bash
-ya pack -a RyuX51/codex
+ya pkg add RyuX51/codex
 ```
 
 ### Manual
@@ -47,7 +47,7 @@ run  = "plugin codex full-auto"
 desc = "Open Codex CLI (full-auto mode)"
 ```
 
-You can also invoke the plugin manually:
+You can also invoke the plugin manually from the Yazi command prompt:
 
 ```text
 :plugin codex suggest
@@ -57,7 +57,62 @@ You can also invoke the plugin manually:
 
 Ensure that the `codex` executable is installed and on your `PATH`.
 
-## Behavior
+## Configuration
 
-When launched, the plugin hides the Yazi UI and directly spawns the Codex CLI (with the selected approval mode).
-The plugin blocks the UI until Codex exits, then restores the Yazi interface.
+The plugin ships with sensible defaults:
+
+- `model = "codex-mini-latest"`  
+- `provider = "openai"`  
+- `images = {}`  
+- `view = nil`  
+- `history = false`  
+- `login = false`  
+- `free = false`  
+- `quiet = false`  
+- `openConfig = false`  
+- `writableRoots = {}`  
+- `noProjectDoc = false`  
+- `projectDocs = {}`  
+- `fullStdout = false`  
+- `notify = false`  
+- `disableResponseStorage = false`  
+- `flexMode = false`  
+- `reasoning = "high"`  
+- `dangerouslyAutoApproveEverything = false`  
+- `fullContext = false`  
+
+You can override any of these in your `init.lua`. For example:
+
+```lua
+require("codex").setup {
+  model                            = "codex-mini-latest",
+  provider                         = "openai",
+  images                           = {},
+  view                             = nil,
+  history                          = false,
+  login                            = false,
+  free                             = false,
+  quiet                            = false,
+  openConfig                       = false,
+  writableRoots                    = {},
+  noProjectDoc                     = false,
+  projectDocs                      = {},
+  fullStdout                       = false,
+  notify                           = false,
+  disableResponseStorage           = false,
+  flexMode                         = false,
+  reasoning                        = "high", -- <low|medium|high>
+  dangerouslyAutoApproveEverything = false,
+  fullContext                      = false
+}
+```
+
+Any fields you omit will fall back to the defaults listed above. When you press your keybinding, the plugin:
+
+1. Builds a `codex` command line from your settings,  
+2. Appends `--approval-mode` to match the key you pressed,  
+3. Hides the Yazi UI,  
+4. Spawns the interactive Codex CLI,  
+5. Restores Yazi when you exit Codex.  
+
+Enjoy full control of your Codex sessions directly from Lua!
