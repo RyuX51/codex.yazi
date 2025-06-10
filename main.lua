@@ -116,7 +116,7 @@ function M.entry(_, job)
   if not child then
     ya.notify {
       title   = "codex.yazi",
-      content = "Failed to spawn codex: " .. tostring(err),
+      content = "Install codex via 'npm install -g @openai/codex'",
       level   = "error",
       timeout = 5,
     }
